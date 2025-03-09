@@ -8,6 +8,14 @@ from g4f.client import Client
 from collections import defaultdict
 import imgkit
 
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
+from webdriver_manager.chrome import ChromeDriverManager
+import time
+from PIL import Image
+import io
+
 # ---------------------------
 # Constants & Configurations
 # ---------------------------
@@ -330,7 +338,7 @@ Include: "@context", "@type", "headline", "description", "author", and "datePubl
     except Exception as e:
         return f"Error generating schema markup: {str(e)}"
 
-def get_screenshot_image(url, delay=5000):
+def get_screenshot_image2(url, delay=5000):
     try:
         options = {
             'format': 'png',              # Ensure output format
@@ -344,6 +352,46 @@ def get_screenshot_image(url, delay=5000):
         return img
     except Exception as e:
         return f"Error generating screenshot: {str(e)}"
+
+def get_screenshot_image(url, wait_time=5):
+    try:
+        # Set up headless Chrome options
+        chrome_options = Options()
+        chrome_options.add_argument("--headless")  # Run in headless mode
+        chrome_options.add_argument("--window-size=1920x1080")  # Initial window size
+        chrome_options.add_argument("--disable-gpu")  # Disable GPU acceleration
+        chrome_options.add_argument("--no-sandbox")  # Bypass OS security model
+        chrome_options.add_argument("--disable-dev-shm-usage")  # Prevent limited resources issue
+        chrome_options.add_argument("--enable-features=NetworkService,NetworkServiceInProcess")
+
+        # Use WebDriver Manager to install ChromeDriver
+        driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=chrome_options)
+
+        # Open the webpage
+        driver.get(url)
+
+        # Wait for the page to load
+        time.sleep(wait_time)
+
+        # Get the total height of the page
+        total_height = driver.execute_script("return document.body.scrollHeight")
+        width = driver.execute_script("return document.body.scrollWidth")
+
+        # Resize the window to capture full height
+        driver.set_window_size(width, total_height)
+
+        # Take full-page screenshot
+        screenshot_png = driver.get_screenshot_as_png()
+
+        # Close the browser
+        driver.quit()
+
+        # Convert PNG data to a PIL image
+        image = Image.open(io.BytesIO(screenshot_png))
+        return image
+
+    except Exception as e:
+        return f"Error generating full-page screenshot: {str(e)}"
 
 def generate_image_from_title(title):
     prompt = f'Generate a highly realistic image based on the title: "{title}". The image should be detailed, realistic, and exclude any text and relevant for blog posting.'
