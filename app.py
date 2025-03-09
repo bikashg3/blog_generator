@@ -615,12 +615,14 @@ def display_content_package(content, seo_data, advanced_assets, export_content):
         st.markdown("## FAQ Section:")
         st.markdown(advanced_assets.get("faq_section", ""), unsafe_allow_html=True)
         st.code(advanced_assets.get("schema_markup", ""), language="json")
-        st.markdown("## Generated Image based on Title:")
         if advanced_assets.get("screenshot"):
             if isinstance(advanced_assets["screenshot"], bytes):
+                st.markdown("## Screenshots from Website:")
                 st.image(advanced_assets["screenshot"], use_column_width=True)
             else:
+                st.markdown("## Screenshots from Website:")
                 st.info(advanced_assets["screenshot"])
+        st.markdown("## Generated Image based on Title:")
         if advanced_assets.get("image_from_title") and advanced_assets["image_from_title"].startswith("http"):
             st.image(advanced_assets["image_from_title"])
         st.write("## YouTube Link:", advanced_assets.get("youtube_link", "Not Applicable"))
