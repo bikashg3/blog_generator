@@ -4,3 +4,7 @@ g4f
 imgkit
 markdownify
 pdfkit
+streamlit
+selenium
+webdriver-manager
+pillow
