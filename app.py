@@ -372,8 +372,8 @@ def get_screenshot_image(url):
             "custom-header": [
                 ("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
             ],  # Prevents websites from blocking wkhtmltoimage
-            "custom-header-propagation": "",
-            "enable-backgrounds": "",  # Ensures full background images are loaded
+            "custom-header-propagation": ""
+            #"enable-backgrounds": "",  # Ensures full background images are loaded
         }
 
         # Generate image from URL
