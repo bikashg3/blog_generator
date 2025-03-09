@@ -551,7 +551,7 @@ def handle_multimedia(config):
 # ---------------------------
 def generate_blog_outputs(inputs, settings):
     # Set API keys
-    openai.api_key = settings.get("api_key", "")
+    #openai.api_key = settings.get("api_key", "")
     youtube_api_key = settings.get("youtube_api_key", "")
     
     progress_bar = st.progress(0)
