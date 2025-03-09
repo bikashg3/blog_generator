@@ -380,8 +380,8 @@ def get_screenshot_image(url):
         img_data = imgkit.from_url(url, False, options=options)
 
         # Convert to an image format that Streamlit supports
-        image = Image.open(BytesIO(img_data))
-        return image
+        #image = Image.open(BytesIO(img_data))
+        return img_data
     except Exception as e:
         return f"Error generating full-page screenshot: {str(e)}"
 
