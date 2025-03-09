@@ -359,6 +359,35 @@ def get_screenshot_image2(url, delay=5000):
     except Exception as e:
         return f"Error generating screenshot: {str(e)}"
 
+# Function to capture full-page screenshot
+def get_screenshot_image2(url):
+    try:
+        options = {
+            "format": "png",
+            "quality": 100,
+            "width": 1920,  # Large viewport width
+            "height": 0,  # 0 enables full-page height
+            "enable-local-file-access": "",
+            "javascript-delay": 5000,  # Wait longer for JS-heavy sites
+            "no-stop-slow-scripts": "",  # Prevent scripts from being stopped
+            "load-error-handling": "ignore",  # Ignore minor errors
+            "disable-smart-width": "",  # Ensures full content width is captured
+            "custom-header": [
+                ("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
+            ],  # Prevents websites from blocking wkhtmltoimage
+            "custom-header-propagation": "",
+            "enable-backgrounds": "",  # Ensures full background images are loaded
+        }
+
+        # Generate image from URL
+        img_data = imgkit.from_url(url, False, options=options)
+
+        # Convert to an image format that Streamlit supports
+        image = Image.open(BytesIO(img_data))
+        return image
+    except Exception as e:
+        return f"Error generating full-page screenshot: {str(e)}"
+
 def get_screenshot_image_chrome(url, wait_time=5):
     try:
         # Set up headless Chrome options
@@ -399,7 +428,7 @@ def get_screenshot_image_chrome(url, wait_time=5):
     except Exception as e:
         return f"Error generating full-page screenshot: {str(e)}"
 
-def get_screenshot_image(url, wait_time=5):
+def get_screenshot_image_firefox(url, wait_time=5):
     try:
         # Set up headless Firefox options
         firefox_options = Options()
