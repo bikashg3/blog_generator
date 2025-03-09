@@ -360,7 +360,7 @@ def get_screenshot_image2(url, delay=5000):
         return f"Error generating screenshot: {str(e)}"
 
 # Function to capture full-page screenshot
-def get_screenshot_image2(url):
+def get_screenshot_image(url):
     try:
         options = {
             "format": "png",
