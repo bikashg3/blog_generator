@@ -1,6 +1,6 @@
 import streamlit as st
 import requests
-import openai
+#import openai
 import re
 import json
 from bs4 import BeautifulSoup
