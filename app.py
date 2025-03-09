@@ -365,13 +365,10 @@ def get_screenshot_image(url):
         options = {
             "format": "png",
             "quality": 100,
-            "width": 1920,  # Large viewport width
-            "height": 0,  # 0 enables full-page height
             "enable-local-file-access": "",
-            "javascript-delay": 5000,  # Wait longer for JS-heavy sites
+            "javascript-delay": 8000,  # Wait longer for JS-heavy sites
             "no-stop-slow-scripts": "",  # Prevent scripts from being stopped
             "load-error-handling": "ignore",  # Ignore minor errors
-            "disable-smart-width": "",  # Ensures full content width is captured
             "custom-header": [
                 ("User-Agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36")
             ],  # Prevents websites from blocking wkhtmltoimage
