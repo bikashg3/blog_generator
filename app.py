@@ -618,7 +618,7 @@ def display_content_package(content, seo_data, advanced_assets, export_content):
         if advanced_assets.get("screenshot"):
             if isinstance(advanced_assets["screenshot"], bytes):
                 st.markdown("## Screenshots from Website:")
-                st.image(advanced_assets["screenshot"], use_column_width=True)
+                st.image(advanced_assets["screenshot"], use_container_width=True)
             else:
                 st.markdown("## Screenshots from Website:")
                 st.info(advanced_assets["screenshot"])
