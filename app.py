@@ -6,6 +6,7 @@ import json
 from bs4 import BeautifulSoup
 from g4f.client import Client
 from collections import defaultdict
+import imgkit
 
 # ---------------------------
 # Constants & Configurations
@@ -329,10 +330,17 @@ Include: "@context", "@type", "headline", "description", "author", and "datePubl
     except Exception as e:
         return f"Error generating schema markup: {str(e)}"
 
-def get_screenshot_image(url):
+def get_screenshot_image(url, delay=5000):
     try:
-        import imgkit
-        img = imgkit.from_url(url, False)
+        options = {
+            'format': 'png',              # Ensure output format
+            'quality': 100,               # High quality
+            'enable-local-file-access': '', # Fixes issues with some websites
+            'javascript-delay': delay,    # Wait for JS to load (in milliseconds)
+            'load-error-handling': 'ignore' # Prevents errors from breaking execution
+        }
+
+        img = imgkit.from_url(url, False, options=options)
         return img
     except Exception as e:
         return f"Error generating screenshot: {str(e)}"
