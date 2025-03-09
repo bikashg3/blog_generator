@@ -1,0 +1,8 @@
+requests
+openai
+re
+bs4
+g4f
+imgkit
+markdownify
+pdfkit
